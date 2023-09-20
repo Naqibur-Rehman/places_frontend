@@ -9,7 +9,7 @@ const MapView = (props) => {
   const mapContainer = useRef();
   const mapRef = useRef();
 
-  maptilersdk.config.apiKey = "NoH96SVdxCPJnDfAaMcu";
+  maptilersdk.config.apiKey = process.env.REACT_APP_MAPTILER_API_KEY;
 
   const { center, zoom } = props;
 

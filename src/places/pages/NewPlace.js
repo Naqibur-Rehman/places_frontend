@@ -19,24 +19,27 @@ const NewPlace = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const [formState, inputHandler] = useForm({
-    title: {
-      value: "",
-      isValid: false,
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+      address: {
+        value: "",
+        isValid: false,
+      },
+      image: {
+        value: null,
+        isValid: false,
+      },
     },
-    description: {
-      value: "",
-      isValid: false,
-    },
-    address: {
-      value: "",
-      isValid: false,
-    },
-    image: {
-      value: null,
-      isValid: false,
-    }
-  });
+    false
+  );
 
   const history = useHistory();
 
@@ -62,7 +65,7 @@ const NewPlace = () => {
   return (
     <>
       <ErrorModal error={error} onClear={clearError} />
-      <form className="place-form">
+      <form className="place-form" onSubmit={placeSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
@@ -89,12 +92,12 @@ const NewPlace = () => {
           errorText="please enter a valid address"
           onInput={inputHandler}
         />
-        <ImageUpload id="image" onInput={inputHandler} errorText="Please provide an image." />
-        <Button
-          type="submit"
-          disabled={!formState.isValid}
-          onClick={placeSubmitHandler}
-        >
+        <ImageUpload
+          id="image"
+          onInput={inputHandler}
+          errorText="Please provide an image."
+        />
+        <Button type="submit" disabled={!formState.isValid}>
           Add Place
         </Button>
       </form>

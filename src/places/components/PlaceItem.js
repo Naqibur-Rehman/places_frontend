@@ -80,7 +80,7 @@ const PlaceItem = (props) => {
         </p>
       </Modal>
       <li className="place-item">
-        <Card>
+        <Card className="place-item__content">
           {isLoading && <LoadingSpinner asOverLay />}
           <div className="place-item__image">
             <img

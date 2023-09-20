@@ -34,7 +34,7 @@ const UpdatePlace = () => {
         isValid: false,
       },
     },
-    true
+    false
   );
 
   useEffect(() => {
@@ -101,7 +101,6 @@ const UpdatePlace = () => {
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
       <ErrorModal error={error} onClear={clearError} />
       {!isLoading && loadedPlace && (
         <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
@@ -113,8 +112,8 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title"
             onInput={inputHandler}
-            initialValue={formState.inputs.title.value}
-            initialValid={formState.inputs.title.isValid}
+            initialValue={loadedPlace.title}
+            initialValid={true}
           />
           <Input
             id="description"
@@ -123,10 +122,12 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min 5 characters"
             onInput={inputHandler}
-            initialValue={formState.inputs.description.value}
-            initialValid={formState.inputs.description.isValid}
+            initialValue={loadedPlace.description}
+            initialValid={true}
           />
-          <Button disabled={!formState.isValid}>Update Place</Button>
+          <Button type="submit" disabled={!formState.isValid}>
+            Update Place
+          </Button>
         </form>
       )}
     </>
